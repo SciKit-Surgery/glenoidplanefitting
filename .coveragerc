@@ -1,0 +1,6 @@
+[run]
+omit = 
+        ./glenoidplanefitting/_version.py
+        ./glenoidplanefitting/__init__.py
+        ./glenoidplanefitting/__main__.py
+        ./glenoidplanefitting/ui/glenoidplanefitting_command_line.py
