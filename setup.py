@@ -53,6 +53,10 @@ setup(
     install_requires=[
         'six>=1.10',
         'numpy>=1.11',
+        scipy,
+        vtk,
+        pyvista,
+        scikit-surgeryvtk
     ],
 
     entry_points={

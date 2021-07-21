@@ -1,25 +1,32 @@
 # coding=utf-8
 
-"""Hello world demo module"""
-from glenoidplanefitting.algorithms import addition, multiplication
+"""Uses plane fitting to fit to vtk model"""
+import vtk
+from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
+from glenoidplanefitting.algorithms import plane_fitting
 
-def run_demo(input_x, input_y, multiply, verbose):
+def run_demo(model_file_name, output=""):
     """ Run the application """
-
-    if multiply:
-        result = multiplication.multiply_two_numbers(input_x, input_y)
-
-    else:
-        result = addition.add_two_numbers(input_x, input_y)
-
-
-    if verbose:
-        if multiply:
-            print("Calculating {} * {}".format(input_x, input_y))
-
-        else:
-            print("Calculating {} + {}".format(input_x, input_y))
+    model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
+    points = [[-57.8, 190.2, -76.9],[-117.7, 112.4, -96.8],[-92.5, 219.2, -162.1]]
+    return_meta = True
+    result = plane_fitting.fit_plane_to_points(points,return_meta)
+                                                     
+                                                     
+                                                     
 
     print("Result is {}".format(result))
 
-    return result
+    if output != "":
+
+        plane = vtk.vtkPlaneSource()
+        plane.SetCenter(result[1]) #result of center calc
+        plane.SetNormal(result[2]) #result of normal vector
+        plane.SetXResolution(600)
+        plane.SetYResolution(600)
+        
+        writer = vtk.vtkXMLPolyDataWriter()
+        writer.SetFileName(output)
+        writer.SetInputData(plane.GetOutput())
+        plane.Update()
+        writer.Write()
