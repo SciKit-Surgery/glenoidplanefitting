@@ -14,24 +14,19 @@ def main(args=None):
     parser = argparse.ArgumentParser(description='glenoidplanefitting')
 
     ## ADD POSITIONAL ARGUMENTS
-    parser.add_argument("x",
-                        type=int,
-                        help="1st number")
+    parser.add_argument("model",
+                        type=str,
+                        help="Filename for vtk surface model")
 
-    parser.add_argument("y",
-                        type=int,
-                        help="2nd number")
 
     # ADD OPTINAL ARGUMENTS
-    parser.add_argument("-m", "--multiply",
-                        action="store_true",
-                        help="Enable multiplication of inputs."
+    parser.add_argument("-o", "--output",
+                        required=False,
+                        type=str,
+                        default="",
+                        help="Write the fitted sphere to file"
                         )
 
-    parser.add_argument("-v", "--verbose",
-                        action="store_true",
-                        help="Enable verbose output",
-                        )
 
     version_string = __version__
     friendly_version_string = version_string if version_string else 'unknown'
@@ -42,4 +37,4 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    run_demo(args.x, args.y, args.multiply, args.verbose)
+    run_demo(args.model, args.output)
