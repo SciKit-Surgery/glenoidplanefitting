@@ -1,9 +1,10 @@
 # coding=utf-8
 
+import numpy
 """glenoidplanefitting tests"""
 
 from glenoidplanefitting.ui.glenoidplanefitting_demo import run_demo
-from glenoidplanefitting.algorithms import addition, multiplication
+from glenoidplanefitting.algorithms import plane_fitting
 
 # Pytest style
 def test_using_pytest_glenoidplanefitting():
