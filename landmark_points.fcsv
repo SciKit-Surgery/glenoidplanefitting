@@ -1,0 +1,32 @@
+# Markups fiducial file version = 4.11
+# CoordinateSystem = LPS
+# columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
+1,-134.07471858497686,128.4751457481224,-90.33000183105472,0,0,0,1,1,1,0,MarkupsFiducial_7-1,,
+
+# Markups fiducial file version = 4.11
+# CoordinateSystem = LPS
+# columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
+1,-119.27769470214844,106.61824798583984,-79.1287612915039,0,0,0,1,1,1,0,MarkupsFiducial_6-1,,
+
+# Markups fiducial file version = 4.11
+# CoordinateSystem = LPS
+# columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
+1,-123.90113830566406,119.51609802246094,-102.44271087646484,0,0,0,1,1,1,0,MarkupsFiducial_8-1,,
+
+#GLENOID
+# Markups fiducial file version = 4.11
+# CoordinateSystem = LPS
+# columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
+1,-125.21257781982422,122.57799530029295,-90.34778594970705,0,0,0,1,1,1,0,MarkupsFiducial_5-1,,
+
+# Markups fiducial file version = 4.11
+# CoordinateSystem = LPS
+# columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
+1,-61.7765998840332,193.93255615234375,-75.36174011230469,0,0,0,1,1,1,0,MarkupsFiducial_4-1,,
+
+
+# Markups fiducial file version = 4.11
+# CoordinateSystem = LPS
+# columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
+1,-91.80431365966795,226.9418487548828,-159.5561676025391,0,0,0,1,1,1,0,MarkupsFiducial_3-1,,
+

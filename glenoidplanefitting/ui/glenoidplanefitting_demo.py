@@ -2,23 +2,28 @@
 
 """Uses plane fitting to fit to vtk model"""
 import vtk
+import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
 from glenoidplanefitting.algorithms import plane_fitting
 
-def run_demo(model_file_name, output=""):
-    
+def run_demo(model_file_name, points="", output=""):
+
+
+    if points != "":
+
+        scapula = np.genfromtxt(points, delimiter=",")
+        points1 = [scapula[0,1:4],scapula[1,1:4], scapula[2,1:4]]
+        points2 = [scapula[3,1:4],scapula[4,1:4], scapula[5,1:4]]
+        
     """ Run the application """
     
     model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
-    points1 = [[-119.27, 106.61, -79.12],[-133.93, 129.15, -90.41],[-123.9, 119.51, -102.4]]
     return_meta1 = True
     result = plane_fitting.fit_plane_to_points(points1,return_meta1)
-
-    points2 =[[-125.21, 122.57, -90.34],[-91.80, 226.94, -159.55],[-61.77, 193.93, -75.36]]
+    
     return_meta2 = True
     result2 = plane_fitting.fit_plane_to_points_glenoid(points2,return_meta2)
-                                                     
- #points_scap = [-125.21, 122.57, -90.34],[-91.80, 226.94, -159.55],[-61.77, 193.93, -75.36]                                                   
+                                                                                                       
 
     print("Result is {}".format(result))
     print("Result2 is {}".format(result2))
@@ -47,12 +52,16 @@ def run_demo(model_file_name, output=""):
         writer = vtk.vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(plane.GetOutput())
-        plane.Update()
         writer.SetInputData(plane2.GetOutput())
+        plane.Update()
         plane2.Update()
         writer.Write()
 
 
+        math = vtk.vtkMath
+        radians = math.AngleBetweenVectors(result[2],result2[2])
+        angle = math.DegreesFromRadians(radians)
+        print("angle=", angle)
 
 
         

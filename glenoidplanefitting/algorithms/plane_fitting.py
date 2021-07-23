@@ -42,17 +42,5 @@ def fit_plane_to_points_glenoid(points2, return_meta2=False):
     return plane2
 
 
-scapula = fit_plane_to_points([[-119.27, 106.61, -79.12],[-133.93, 129.15, -90.41],[-123.9, 119.51, -102.4]],True)
-glenoid = fit_plane_to_points_glenoid([[-125.21, 122.57, -90.34],[-91.80, 226.94, -159.55],[-61.77, 193.93, -75.36]],True)
-
-math = vtk.vtkMath
-radians = math.AngleBetweenVectors(scapula[2],glenoid[2])
-angle = math.DegreesFromRadians(radians)
-
-print("angle=", angle)
-
-print("scapula=", scapula)
-
-print("glenoid=", glenoid)
 
 

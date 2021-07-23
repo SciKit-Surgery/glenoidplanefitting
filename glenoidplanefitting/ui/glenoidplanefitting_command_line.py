@@ -18,14 +18,23 @@ def main(args=None):
                         type=str,
                         help="Filename for vtk surface model")
 
+    
+    # ADD OPTIONAL ARGUMENTS
+    parser.add_argument("-i", "--points",
+                        required=False,
+                        type=str,
+                        default="",
+                        help="Landmark points file"
+                        )
 
-    # ADD OPTINAL ARGUMENTS
+    # ADD OPTIONAL ARGUMENTS
     parser.add_argument("-o", "--output",
                         required=False,
                         type=str,
                         default="",
                         help="Write the fitted sphere to file"
                         )
+
 
 
     version_string = __version__
@@ -37,4 +46,4 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    run_demo(args.model, args.output)
+    run_demo(args.model, args.points, args.output)
