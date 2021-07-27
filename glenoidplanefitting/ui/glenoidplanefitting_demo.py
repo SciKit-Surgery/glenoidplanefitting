@@ -48,7 +48,6 @@ def run_demo(model_file_name, points="", output="", visualise = False):
         plane2.SetXResolution(100)
         plane2.SetYResolution(100)
 
-
         writer = vtk.vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(plane.GetOutput())
@@ -57,13 +56,12 @@ def run_demo(model_file_name, points="", output="", visualise = False):
         plane2.Update()
         writer.Write()
 
-
         math = vtk.vtkMath
         radians = math.AngleBetweenVectors(result[2],result2[2])
         angle = math.DegreesFromRadians(radians)
         print("angle=", angle)
     
     if visualise:
-        vis_widget()
+        vis_widget(model, [result, result2])
 
         
