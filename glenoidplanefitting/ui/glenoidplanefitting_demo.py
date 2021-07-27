@@ -5,8 +5,9 @@ import vtk
 import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
 from glenoidplanefitting.algorithms import plane_fitting
+from glenoidplanefitting.widgets.visualisation import vis_widget
 
-def run_demo(model_file_name, points="", output=""):
+def run_demo(model_file_name, points="", output="", visualise = False):
 
 
     if points != "":
@@ -24,7 +25,6 @@ def run_demo(model_file_name, points="", output=""):
     return_meta2 = True
     result2 = plane_fitting.fit_plane_to_points_glenoid(points2,return_meta2)
                                                                                                        
-
     print("Result is {}".format(result))
     print("Result2 is {}".format(result2))
 
@@ -62,6 +62,8 @@ def run_demo(model_file_name, points="", output=""):
         radians = math.AngleBetweenVectors(result[2],result2[2])
         angle = math.DegreesFromRadians(radians)
         print("angle=", angle)
-
+    
+    if visualise:
+        vis_widget()
 
         
