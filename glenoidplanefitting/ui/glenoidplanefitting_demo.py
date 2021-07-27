@@ -5,8 +5,10 @@ import vtk
 import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
 from glenoidplanefitting.algorithms import plane_fitting
+from glenoidplanefitting.widgets.visualisation import vis_widget
+from glenoidplanefitting.algorithms.models import make_plane_model
 
-def run_demo(model_file_name, points="", output=""):
+def run_demo(model_file_name, points="", output="", visualise = False):
 
 
     if points != "":
@@ -24,30 +26,13 @@ def run_demo(model_file_name, points="", output=""):
     return_meta2 = True
     result2 = plane_fitting.fit_plane_to_points_glenoid(points2,return_meta2)
                                                                                                        
-
     print("Result is {}".format(result))
     print("Result2 is {}".format(result2))
 
     if output != "":
-
-        plane = vtk.vtkPlaneSource()
-        plane.SetOrigin(-100,-100,0)
-        plane.SetPoint1(-100,100,0)
-        plane.SetPoint2(100,-100,0)
-        plane.SetCenter(result[1]) #result of center calc
-        plane.SetNormal(result[2]) #result of normal vector
-        plane.SetXResolution(100)
-        plane.SetYResolution(100)
         
-        plane2 = vtk.vtkPlaneSource()
-        plane2.SetOrigin(-100,-100,0)
-        plane2.SetPoint1(-100,100,0)
-        plane2.SetPoint2(100,-100,0)
-        plane2.SetCenter(result2[1]) #result of center calc
-        plane2.SetNormal(result2[2]) #result of normal vector
-        plane2.SetXResolution(100)
-        plane2.SetYResolution(100)
-
+        plane = make_plane_model(result[1], result[2], resolution = 100)
+        plane2 = make_plane_model(result2[1], result2[2], resolution = 100)
 
         writer = vtk.vtkXMLPolyDataWriter()
         writer.SetFileName(output)
@@ -57,11 +42,12 @@ def run_demo(model_file_name, points="", output=""):
         plane2.Update()
         writer.Write()
 
-
         math = vtk.vtkMath
         radians = math.AngleBetweenVectors(result[2],result2[2])
         angle = math.DegreesFromRadians(radians)
         print("angle=", angle)
-
+    
+    if visualise:
+        vis_widget(model, [result, result2])
 
         
