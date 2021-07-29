@@ -21,3 +21,20 @@ def make_plane_model(plane_centre, normal_vector, resolution = 10):
     plane.SetXResolution(resolution)
     plane.SetYResolution(resolution)
     return plane
+
+def make_friedman_model(point1, point2):
+
+    """
+    Makese a vtk line source from two set points
+    :param point1: one end of the line
+    :param point2: other end of the line
+
+    :returns: The line
+    """
+
+    line = vtk.vtkLineSource()
+    line.SetPoint1(point1)
+    line.SetPoint2(point2)
+    return line
+
+    
