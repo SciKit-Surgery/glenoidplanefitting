@@ -57,4 +57,4 @@ def VaultVersion(p1,pm,p3):
     version = (math.DegreesFromRadians(radians))-90
     
 
-    return angle
+    return version

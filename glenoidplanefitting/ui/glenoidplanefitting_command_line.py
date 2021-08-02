@@ -20,12 +20,29 @@ def main(args=None):
 
     
     # ADD OPTIONAL ARGUMENTS
-    parser.add_argument("-i", "--points",
+    parser.add_argument("-p", "--planes",
                         required=False,
                         type=str,
                         default="",
                         help="Landmark points file"
                         )
+
+    parser.add_argument("-f", "--fried_points",
+                        required=False,
+                        type=str,
+                        default="",
+                        help="Landmark points file (freidman)"
+                        )
+
+                        
+    parser.add_argument("-t", "--vault_points",
+                        required=False,
+                        type=str,
+                        default="",
+                        help="Landmark points file (vault)"
+                        )
+                        
+
 
     parser.add_argument("-o", "--output",
                         required=False,
@@ -53,4 +70,4 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    run_demo(args.model, args.points, args.output, args.visualise)
+    run_demo(args.model, args.planes, args.fried_points, args.vault_points, args.output, args.visualise)
