@@ -46,7 +46,8 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", outpu
         p3 = axial[2,1:4]
 
         result = friedman.createFriedmanLine(p1,p2)
-
+        if visualise:
+            vis_fried(model, p1, p2, p3, result)
 
 
     if vault_points !="":
@@ -57,6 +58,8 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", outpu
         p3 = axial[2,1:4]
 
         result = vault.createVaultLine(p1,p2)
+        if visualise:
+            vis_vault(model, p1, p2, p3, result)
                                                                                                    
 
     if output == "planes.vtp":
