@@ -7,7 +7,7 @@ from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
 from glenoidplanefitting.algorithms import plane_fitting
 from glenoidplanefitting.algorithms import friedman
 from glenoidplanefitting.algorithms import vault
-from glenoidplanefitting.widgets.visualisation import vis_widget
+from glenoidplanefitting.widgets.visualisation import vis_planes, vis_fried, vis_vault
 from glenoidplanefitting.algorithms.models import make_plane_model
 from glenoidplanefitting.algorithms.models import make_friedman_model
 from glenoidplanefitting.algorithms.models import make_vault_model
@@ -16,6 +16,7 @@ from glenoidplanefitting.algorithms.models import make_vault_model
 def run_demo(model_file_name, planes="", fried_points="", vault_points="", output="", visualise = False):
 
 
+    model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
     if planes != "":
 
         points = np.genfromtxt(planes, delimiter=",")
@@ -27,13 +28,14 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", outpu
         points2 = [points[3,1:4],points[4,1:4], points[5,1:4]]
 
     
-        model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
         return_meta1 = True
         result = plane_fitting.fit_plane_to_points_scapula(points1,return_meta1)
     
         return_meta2 = True
         result2 = plane_fitting.fit_plane_to_points_glenoid(points2,return_meta2)
 
+        if visualise:
+            vis_planes(model, [result, result2])
 
 
     if fried_points != "":
@@ -43,7 +45,6 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", outpu
         p2 = axial[1,1:4]
         p3 = axial[2,1:4]
 
-        model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
         result = friedman.createFriedmanLine(p1,p2)
 
 
@@ -55,7 +56,6 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", outpu
         p2 = axial[1,1:4]
         p3 = axial[2,1:4]
 
-        model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
         result = vault.createVaultLine(p1,p2)
                                                                                                    
 
@@ -115,8 +115,6 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", outpu
         
 
     
-    if visualise:
-        vis_widget(model, [result, result2])
 
 
         
