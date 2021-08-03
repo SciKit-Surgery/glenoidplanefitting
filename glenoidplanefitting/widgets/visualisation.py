@@ -1,18 +1,14 @@
 import vtk
-from glenoidplanefitting.algorithms.models import make_plane_model
+from glenoidplanefitting.algorithms.models import make_plane_model, \
+        make_friedman_model, make_vault_model
 
-def vis_widget(bone, planes):
-    
+def renderer_common(bone):
+    """
+    Initialises a vtk renderer and adds the bone model
+    """
+
     renderer = vtk.vtkRenderer()
-    for plane in planes:
-        planeSource = make_plane_model(plane[1], plane[2])
 
-        mapper = vtk.vtkPolyDataMapper()
-        mapper.SetInputConnection(planeSource.GetOutputPort())
-        actor = vtk.vtkActor()
-        actor.SetMapper(mapper)
-        renderer.AddActor(actor)
-    
     bone.ambient = 1.0
     bone.diffuse = 1.0
     bone.specular = 1.0
@@ -21,8 +17,17 @@ def vis_widget(bone, planes):
     bone.actor.GetProperty().SetSpecular(1)
     renderer.AddActor(bone.actor)
 
+    return renderer
+
+def render_window_common(renderer, window_name):
+    """
+    Creates and starts a render window and interactor.
+    :param renderer: A vtk renderer to add to the render window
+    :param window_name: A name for the window
+    """
+
     renderWindow = vtk.vtkRenderWindow()
-    renderWindow.SetWindowName("Arrow")
+    renderWindow.SetWindowName(window_name)
     renderWindow.AddRenderer(renderer)
 
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
@@ -31,3 +36,66 @@ def vis_widget(bone, planes):
 
     renderWindow.Finalize()
     del renderWindowInteractor, renderWindow
+
+def add_vtk_source(renderer, source):
+    """
+    simplifies adding a vtk geometry source to a renderer
+    :params renderer: a vtk renderer to add to
+    :params source: a vtk geometry source 
+    """
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(source.GetOutputPort())
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    renderer.AddActor(actor)
+    
+def vis_planes(bone, planes):
+    """
+    Visualisation for plane fitting methods
+    :param bone: The model surface model
+    :param planes: a list of planes, as returned by the 
+        plane fitting methods in algorithms.plane_fitting
+
+    """
+    renderer = renderer_common(bone)
+    for plane in planes:
+        planeSource = make_plane_model(plane[1], plane[2])
+        add_vtk_source(renderer, planeSource)
+
+
+    render_window_common(renderer, "Fitted Planes")
+  
+def vis_fried(bone, p1, p2, p3, result):
+    """
+    Visualise the lines resulting from the friedman 
+    method.
+    :params p1, p2: The end points of the line crossing the glenoid
+    :params p3, result: The end points of the line defining the glenoid version
+    """
+    renderer = renderer_common(bone)
+
+    glenoid_line = make_friedman_model(p1,p2)
+    add_vtk_source(renderer, glenoid_line)
+
+    friedman_line = make_friedman_model(p3,result)
+    add_vtk_source(renderer, friedman_line)
+
+    render_window_common(renderer, "Friedman Lines")
+
+
+def vis_vault(bone, p1, p2, p3, result):
+    """
+    Visualise the lines resulting from the vault
+    method.
+    :params p1, p2: The end points of the line crossing the glenoid
+    :params p3, result: The end points of the line defining the glenoid version
+    """
+    renderer = renderer_common(bone)
+
+    glenoid_line = make_vault_model(p1,p2)
+    add_vtk_source(renderer, glenoid_line)
+    
+    vault_line = make_vault_model(p3, result)
+    add_vtk_source(renderer, vault_line)
+
+    render_window_common(renderer, "Vault Lines")
