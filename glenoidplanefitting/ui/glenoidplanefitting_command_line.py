@@ -41,6 +41,14 @@ def main(args=None):
                         default="",
                         help="Landmark points file (vault)"
                         )
+
+    
+    parser.add_argument("-c", "--corr_fried",
+                        required=False,
+                        type=str,
+                        default="",
+                        help="Landmark points file (corrected friedman)"
+                        )    
                         
 
 
@@ -48,7 +56,7 @@ def main(args=None):
                         required=False,
                         type=str,
                         default="",
-                        help="Write the fitted plane to file"
+                        help="Write the fitted plane or lines to a file"
                         )
 
     
@@ -70,4 +78,4 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    run_demo(args.model, args.planes, args.fried_points, args.vault_points, args.output, args.visualise)
+    run_demo(args.model, args.planes, args.fried_points, args.vault_points,args.corr_fried, args.output, args.visualise)

@@ -28,7 +28,7 @@ def createVaultLine(p1,p2):
 
     midpoint_x = (p1[0] + p2[0])/2
     midpoint_y = (p1[1] + p2[1])/2
-    pm = [midpoint_x, midpoint_y,-94.83]
+    pm = [midpoint_x, midpoint_y,p1[2]]
 
     return pm
 
@@ -40,7 +40,7 @@ def VaultVersion(p1,pm,p3):
     :param pm: Second point on the vault line, anatomically defined as the midpoint of the glenoid fossa
     :param p3: First point on the vault line, anatomically defined as the tip of the glenoid vaultt
 
-    :returns: The glenoid version 
+    :returns: The glenoid version (positive value indicates retroversion)
 
     """
 
