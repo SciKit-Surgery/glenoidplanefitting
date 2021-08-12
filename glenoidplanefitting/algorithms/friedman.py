@@ -17,6 +17,7 @@ def createFriedmanLine(p1,p2):
 
     """
     Determines the second point needed to form the Friedman line
+    
     :param p1: First point on glenoid line, anatomically defined as a point on the anterior margin of glenoid
     :param p2: Second point on glenoid line anatomically defined as a point on the posterior margin of glenoid
     
@@ -33,11 +34,12 @@ def FriedmanVersion(p1,pm,p3):
 
     """
     Determines the glenoid version using the Friedman line
+    
     :param p1: First point on glenoid line, anatomically defined as a point on the anterior margin of the glenoid
     :param pm: Second point on the Friedman line, anatomically defined as the midpoint of the glenoid fossa
     :param p3: First point on the Friedman line, anatomically defined as the medial tip of the scapula
 
-    :returns: The glenoid version 
+    :returns: The glenoid version (positive value indicates retroversion)
 
     """
 
