@@ -1,18 +1,18 @@
 glenoidplanefitting
 ===============================
 
-.. image:: https://github.com/astaolaf/glenoidplanefitting/raw/master/project-icon.png
+.. image:: https://github.com/SciKit-Surgery/glenoidplanefitting/raw/master/skglenoid_logo.png
    :height: 128px
    :width: 128px
-   :target: https://github.com/astaolaf/glenoidplanefitting
+   :target: https://github.com/SciKit-Surgery/glenoidplanefitting
    :alt: Logo
 
-.. image:: https://github.com/astaolaf/glenoidplanefitting/badges/master/build.svg
-   :target: https://github.com/astaolaf/glenoidplanefitting/pipelines
+.. image:: https://github.com/SciKit-Surgery/glenoidplanefitting/badges/master/build.svg
+   :target: https://github.com/SciKit-Surgery/glenoidplanefitting/pipelines
    :alt: GitLab-CI test status
 
-.. image:: https://github.com/astaolaf/glenoidplanefitting/badges/master/coverage.svg
-    :target: https://github.com/astaolaf/glenoidplanefitting/commits/master
+.. image:: https://github.com/SciKit-Surgery/glenoidplanefitting/badges/master/coverage.svg
+    :target: https://github.com/SciKit-Surgery/glenoidplanefitting/commits/master
     :alt: Test coverage
 
 .. image:: https://readthedocs.org/projects/glenoidplanefitting/badge/?version=latest
@@ -46,7 +46,7 @@ You can clone the repository using the following command:
 
 ::
 
-    git clone https://github.com/astaolaf/glenoidplanefitting
+    git clone https://github.com/SciKit-Surgery/glenoidplanefitting
 
 
 Running tests
@@ -76,7 +76,7 @@ You can pip install directly from the repository as follows:
 
 ::
 
-    pip install git+https://github.com/astaolaf/glenoidplanefitting
+    pip install git+https://github.com/SciKit-Surgery/glenoidplanefitting
 
 
 
@@ -107,12 +107,12 @@ Supported by `Wellcome`_ and `EPSRC`_.
 
 
 .. _`Wellcome EPSRC Centre for Interventional and Surgical Sciences`: http://www.ucl.ac.uk/weiss
-.. _`source code repository`: https://github.com/astaolaf/glenoidplanefitting
+.. _`source code repository`: https://github.com/SciKit-Surgery/glenoidplanefitting
 .. _`Documentation`: https://glenoidplanefitting.readthedocs.io
 .. _`scikit-surgery`: https://github.com/UCL/scikit-surgery/wiki
 .. _`University College London (UCL)`: http://www.ucl.ac.uk/
 .. _`Wellcome`: https://wellcome.ac.uk/
 .. _`EPSRC`: https://www.epsrc.ac.uk/
-.. _`contributing guidelines`: https://github.com/astaolaf/glenoidplanefitting/blob/master/CONTRIBUTING.rst
-.. _`license file`: https://github.com/astaolaf/glenoidplanefitting/blob/master/LICENSE
+.. _`contributing guidelines`: https://github.com/SciKit-Surgery/glenoidplanefitting/blob/master/CONTRIBUTING.rst
+.. _`license file`: https://github.com/SciKit-Surgery/glenoidplanefitting/blob/master/LICENSE
 

@@ -17,7 +17,7 @@ setup(
     description='implements a plane fitting algorithm to read a vtk polydata file and outputs fitted plane',
     long_description=long_description,
     long_description_content_type='text/x-rst',
-    url='https://github.com/astaolaf/glenoidplanefitting',
+    url='https://github.com/SciKit-Surgery/glenoidplanefitting',
     author='Asta Olafsdottir',
     author_email='YOUR-EMAIL@ucl.ac.uk',
     license='BSD-3 license',
