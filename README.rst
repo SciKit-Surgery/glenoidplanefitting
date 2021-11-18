@@ -7,12 +7,12 @@ glenoidplanefitting
    :target: https://github.com/SciKit-Surgery/glenoidplanefitting
    :alt: Logo
 
-.. image:: https://github.com/SciKit-Surgery/glenoidplanefitting/badges/master/build.svg
-   :target: https://github.com/SciKit-Surgery/glenoidplanefitting/pipelines
+.. image:: https://github.com/SciKit-Surgery/glenoidplanefitting/workflows/.github/workflows/ci.yml/badge.svg
+   :target: https://github.com/SciKit-Surgery/glenoidplanefitting/actions
    :alt: GitLab-CI test status
 
-.. image:: https://github.com/SciKit-Surgery/glenoidplanefitting/badges/master/coverage.svg
-    :target: https://github.com/SciKit-Surgery/glenoidplanefitting/commits/master
+.. image:: https://coveralls.io/repos/github/SciKit-Surgery/glenoidplanefitting/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/SciKit-Surgery/glenoidplanefitting?branch=master
     :alt: Test coverage
 
 .. image:: https://readthedocs.org/projects/glenoidplanefitting/badge/?version=latest
