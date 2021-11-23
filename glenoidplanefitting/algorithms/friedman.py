@@ -7,21 +7,20 @@ of glenoid version. J Bone and Joint Surg Am 1992; 74: 1032–7.
 
 """
 
-import vtk
-import numpy as np
 import math
+import numpy as np
 
-def createFriedmanLine(point0,point1):
+def create_friedman_line(point0,point1):
 
     """
     Determines the second point needed to form the Friedman line
 
-    :param point0: First point on glenoid line, anatomically defined as a 
+    :param point0: First point on glenoid line, anatomically defined as a
         point on the anterior margin of glenoid
-    :param point1: Second point on glenoid line anatomically defined as a 
+    :param point1: Second point on glenoid line anatomically defined as a
         point on the posterior margin of glenoid
 
-    :returns: The midpoint of the glenoid line, which is the second point of 
+    :returns: The midpoint of the glenoid line, which is the second point of
         the Friedman line
     """
 
@@ -30,12 +29,12 @@ def createFriedmanLine(point0,point1):
     midpoint = [midpoint_x, midpoint_y,point0[2]]
     return midpoint
 
-def FriedmanVersion(glenoid0,friedman1,friedman0):
+def friedman_version(glenoid0,friedman1,friedman0):
 
     """
     Determines the glenoid version using the Friedman line
 
-    :param glenoid0: First point on glenoid line, anatomically defined as a 
+    :param glenoid0: First point on glenoid line, anatomically defined as a
         point on the anterior margin of the glenoid
     :param friedman1: Second point on the Friedman line, anatomically defined
         as the midpoint of the glenoid fossa
@@ -53,10 +52,9 @@ def FriedmanVersion(glenoid0,friedman1,friedman0):
     glen_f1 = glenoid0_arr - friedman1_arr
     f0_f1 = friedman0_arr - friedman1_arr
 
-    cosine_angle = np.dot(glen_f1, f0_f1) / (np.linalg.norm(glen_f1) * 
+    cosine_angle = np.dot(glen_f1, f0_f1) / (np.linalg.norm(glen_f1) *
             np.linalg.norm(f0_f1))
     radians = np.arccos(cosine_angle)
-    math = vtk.vtkMath
-    version = (math.DegreesFromRadians(radians))-90
+    version = (math.degrees(radians))-90
 
     return version
