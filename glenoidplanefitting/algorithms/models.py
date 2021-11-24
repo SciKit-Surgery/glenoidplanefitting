@@ -4,7 +4,8 @@ results
 """
 import vtk
 
-def make_plane_model(plane_centre, normal_vector, resolution = 10):
+def make_plane_model(plane_centre, normal_vector, resolution = 10,
+        plane_size = 200.0):
     """
     Makes a vtk plane source, with centre and normal vector
     :param plane_centre: a point on the plane
@@ -13,9 +14,9 @@ def make_plane_model(plane_centre, normal_vector, resolution = 10):
     :returns: The plane
     """
     plane = vtk.vtkPlaneSource()
-    plane.SetOrigin(-100,-100,0)
-    plane.SetPoint1(-100,100,0)
-    plane.SetPoint2(100,-100,0)
+    plane.SetOrigin(-plane_size/2.,-plane_size/2.,0)
+    plane.SetPoint1(-plane_size/2.,plane_size/2.,0)
+    plane.SetPoint2(plane_size/2.,-plane_size/2.,0)
     plane.SetCenter(plane_centre)
     plane.SetNormal(normal_vector)
     plane.SetXResolution(resolution)
@@ -52,4 +53,4 @@ def make_vault_model(point1,point2):
     line.SetPoint1(point1)
     line.SetPoint2(point2)
     return line
-    
+
