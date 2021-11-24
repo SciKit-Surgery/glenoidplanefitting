@@ -36,20 +36,33 @@ def test_make_plane_model():
                                        np.array(plane.GetPoint2()))
     expected_plane_size = math.sqrt(2 * (plane_size * plane_size))
     assert math.isclose(actual_plane_size, expected_plane_size)
-    
-
-
-    
-
-
 
 
 def test_friedman_model():
-    pass
+    """
+    Tests that make Friedman model returns the appropriate line
+    """
+    point1 = (2.0, 3.0, 5.0)
+    point2 = (7.0, 11.0, 13.0)
 
+    line = mdl.make_friedman_model(point1, point2)
 
-
+    assert isinstance(line, vtk.vtkLineSource)
+    assert line.GetPoint1() == point1
+    assert line.GetPoint2() == point2
 
 
 def test_vault_model():
-    pass
+    """
+    Tests that make vault model returns the appropriate line
+    """
+    point1 = (1.0, 1.0, 2.0)
+    point2 = (3.0, 5.0, 8.0)
+
+    line = mdl.make_vault_model(point1, point2)
+
+    assert isinstance(line, vtk.vtkLineSource)
+    assert line.GetPoint1() == point1
+    assert line.GetPoint2() == point2
+
+
