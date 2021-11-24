@@ -87,7 +87,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         p2 = axial[1,1:4]
         p3 = axial[2,1:4]
 
-        result = friedman.createFriedmanLine(p1,p2)
+        result = friedman.create_friedman_line(p1,p2)
         if visualise:
             vis_fried(model, p1, p2, p3, result)
 
@@ -110,7 +110,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         p2 = axial[1,1:4]
         p3 = axial[2,1:4]
 
-        result = corrected_friedman.createFriedmanLine(p1,p2)
+        result = corrected_friedman.create_friedman_line(p1,p2)
         if visualise:
             vis_fried(model,p1,p2,p3,result)
 
@@ -142,7 +142,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         friedman_line.Update()
         writer.Write()
 
-        version = friedman.FriedmanVersion(p2,result,p3)
+        version = friedman.friedman_version(p2,result,p3)
         print("version=",version)
 
     if output == "vault.vtp":
