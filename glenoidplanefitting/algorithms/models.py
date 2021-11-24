@@ -2,7 +2,7 @@
 Functions to create vtk models for visualisation of
 results
 """
-import vtk
+from vtk import vtkPlaneSource, vtkLineSource #pylint:disable=no-name-in-module
 
 def make_plane_model(plane_centre, normal_vector, resolution = 10,
         plane_size = 200.0):
@@ -13,7 +13,7 @@ def make_plane_model(plane_centre, normal_vector, resolution = 10,
 
     :returns: The plane
     """
-    plane = vtk.vtkPlaneSource()
+    plane = vtkPlaneSource()
     plane.SetOrigin(-plane_size/2.,-plane_size/2.,0)
     plane.SetPoint1(-plane_size/2.,plane_size/2.,0)
     plane.SetPoint2(plane_size/2.,-plane_size/2.,0)
@@ -33,7 +33,7 @@ def make_friedman_model(point1, point2):
     :returns: The line
     """
 
-    line = vtk.vtkLineSource()
+    line = vtkLineSource()
     line.SetPoint1(point1)
     line.SetPoint2(point2)
     return line
@@ -49,8 +49,7 @@ def make_vault_model(point1,point2):
     :returns: The line
     """
 
-    line = vtk.vtkLineSource()
+    line = vtkLineSource()
     line.SetPoint1(point1)
     line.SetPoint2(point2)
     return line
-
