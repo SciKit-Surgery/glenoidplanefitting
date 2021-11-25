@@ -20,12 +20,13 @@ def fit_plane_to_points_scapula(points1, return_meta1=False):
     """
     Fit a plane to a set of manually selected points on the scapula
 
-    :param points1: np.ndarray, size n by 3 array of the following points, inferior tip of scapula
-    medial border of scapula, and center of glenoid fossa.
-    :param return_meta: If true, also returns the center and normal used to generate the plane
+    :param points1: np.ndarray, size n by 3 array of the following points,
+        inferior tip of scapula, medial border of scapula, and center
+        of glenoid fossa.
+    :param return_meta: If true, also returns the center and normal
+        used to generate the plane
 
     :return: the fitted plane through the scapula
-    
     """
 
     data = np.array(points1)
@@ -45,14 +46,15 @@ def fit_plane_to_points_glenoid(points2, return_meta2=False):
     """
     Fit a plane to a set of manually selected points on the glenoid face
 
-    :param points1: np.ndarray, size n by 3 array of the following points, one superior on the glenoid face,
-    two inferior on the glenoid face left and right side
-    :param return_meta: If true, also returns the center and normal used to generate the plane
+    :param points1: np.ndarray, size n by 3 array of the following points,
+        one superior on the glenoid face,
+        two inferior on the glenoid face left and right side
+    :param return_meta: If true, also returns the center and normal
+        used to generate the plane
 
     :return: the fitted plane of the glenoid face
-    
     """
-    
+
     data2 = np.array(points2)
     center2 = data2.mean(axis=0)
     result2 = np.linalg.svd(data2 - center2)
@@ -66,15 +68,18 @@ def fit_plane_to_points_glenoid(points2, return_meta2=False):
 def fit_plane_transverse(points1, points3, return_meta3=False):
 
     """
-    Fit a transverse plane perpendicular to the scapular plane and passing through the scapular axis.
+    Fit a transverse plane perpendicular to the scapular plane and
+    passing through the scapular axis.
 
-    :param points1: np.ndarray, size n by 3 array of the following points, inferior tip of scapula
-    medial border of scapula, and center of glenoid fossa.
-    :param points3: np.ndarray, size n by 3 of the following points, center of glenoid fossa, and medial border
-    :param return_meta: If true, also returns the center and normal used to generate the plane
+    :param points1: np.ndarray, size n by 3 array of the following points,
+        inferior tip of scapula medial border of scapula,
+        and center of glenoid fossa.
+    :param points3: np.ndarray, size n by 3 of the following points,
+        center of glenoid fossa, and medial border
+    :param return_meta: If true, also returns the center and normal
+        used to generate the plane
 
     :return: the fitted transverse plane
-    
     """
 
     data = np.array(points1)
@@ -82,7 +87,7 @@ def fit_plane_transverse(points1, points3, return_meta3=False):
     result = np.linalg.svd(data - center)
     normal = np.cross(result[2][0], result[2][1])
     normal1 = np.array(normal)
-    
+
     data3 = np.array(points3)
     x_mid = (data3[0,0] + data3[1,0])/2
     y_mid = (data3[0,1] + data3[1,1])/2
@@ -106,9 +111,8 @@ def PlanesVersion(normal_plane1, normal_plane2):
     :param normal_plane2: The normal vector of the glenoid plane.
 
     :returns: The glenoid version (positive value indicates retroversion)
-    
     """
-    
+
     math = vtk.vtkMath
     radians = math.AngleBetweenVectors(normal_plane1, normal_plane2)
     version = (math.DegreesFromRadians(radians))-90
