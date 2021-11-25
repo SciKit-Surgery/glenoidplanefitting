@@ -94,6 +94,6 @@ def test_two_plane_version():
     plane_normal1 = (0.0, 1.0, 0.0)
     plane_normal2 = (-0.5, -0.5, 0.0)
 
-    version = plnf.PlanesVersion(plane_normal1, plane_normal2)
+    version = plnf.planes_version(plane_normal1, plane_normal2)
 
     assert version == 45.0

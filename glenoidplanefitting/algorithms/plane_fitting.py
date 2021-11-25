@@ -10,10 +10,10 @@ J Shoulder Elbow Surg (2011) 20, 234-244
 
 """
 
+import math
 import numpy as np
 import pyvista
 import vtk
-import math
 
 
 def fit_plane_to_points_scapula(points1, return_meta1=False):
@@ -102,7 +102,7 @@ def fit_plane_transverse(points1, points3, return_meta3=False):
     return plane3
 
 
-def PlanesVersion(normal_plane1, normal_plane2):
+def planes_version(normal_plane1, normal_plane2):
 
     """
     Determines the glenoid version using the two planes method.
@@ -113,10 +113,8 @@ def PlanesVersion(normal_plane1, normal_plane2):
     :returns: The glenoid version (positive value indicates retroversion)
     """
 
-    math = vtk.vtkMath
-    radians = math.AngleBetweenVectors(normal_plane1, normal_plane2)
-    version = (math.DegreesFromRadians(radians))-90
+    radians = vtk.vtkMath().AngleBetweenVectors(#pylint:disable=no-member
+            normal_plane1, normal_plane2)
+    version = math.degrees(radians) - 90
 
     return version
-
-

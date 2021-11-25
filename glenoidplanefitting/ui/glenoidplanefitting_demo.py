@@ -126,7 +126,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         plane3.Update()
         writer.Write()
 
-        version = plane_fitting.PlanesVersion(result[2], result2[2])
+        version = plane_fitting.planes_version(result[2], result2[2])
         print("version=", version)
 
     if output == "friedman.vtp":
