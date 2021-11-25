@@ -12,7 +12,7 @@ def test_creat_vault_line():
     anterior_margin = [3.0, 5.0, 9.0]
     posterior_margin = [11.0, 13.0, 17.0]
 
-    vault_point = vlt.createVaultLine(anterior_margin, posterior_margin)
+    vault_point = vlt.create_vault_line(anterior_margin, posterior_margin)
 
     assert vault_point[0] == 7.0
     assert vault_point[1] == 9.0
@@ -29,7 +29,7 @@ def test_vault_version():
     vault_point0 = [11.0, 13.0, 17.0]
     vault_point1 = [19.0, 23.0, 29.0]
 
-    version = vlt.VaultVersion(anterior_margin,
+    version = vlt.vault_version(anterior_margin,
             vault_point1, vault_point0 )
 
     assert math.isclose(version, -85.90928830690325,

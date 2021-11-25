@@ -99,7 +99,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         p2 = axial[1,1:4]
         p3 = axial[2,1:4]
 
-        result = vault.createVaultLine(p1,p2)
+        result = vault.create_vault_line(p1,p2)
         if visualise:
             vis_vault(model, p1, p2, p3, result)
 
@@ -158,5 +158,5 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         vault_line.Update()
         writer.Write()
 
-        version = vault.VaultVersion(p2,result,p3)
+        version = vault.vault_version(p2,result,p3)
         print("version=",version)
