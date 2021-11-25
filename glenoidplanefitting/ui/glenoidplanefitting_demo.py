@@ -54,6 +54,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         """
 
     model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
+    version = None
     if planes != "":
 
         points = np.genfromtxt(planes, delimiter=",")
@@ -83,36 +84,40 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
 
         axial = np.genfromtxt(fried_points, delimiter=",")
 
-        p1 = axial[0,1:4]
-        p2 = axial[1,1:4]
-        p3 = axial[2,1:4]
+        anterior_glenoid = axial[0,1:4]
+        posterior_glenoid = axial[1,1:4]
+        glenoid_centre = axial[2,1:4]
 
-        result = friedman.create_friedman_line(p1,p2)
+        result = friedman.create_friedman_line(anterior_glenoid,
+                posterior_glenoid)
         if visualise:
-            vis_fried(model, p1, p2, p3, result)
+            vis_fried(model, anterior_glenoid, posterior_glenoid, 
+                    glenoid_centre, result)
 
 
     if vault_points !="":
 
         axial = np.genfromtxt(vault_points, delimiter=",")
-        p1 = axial[0,1:4]
-        p2 = axial[1,1:4]
-        p3 = axial[2,1:4]
+        anterior_glenoid = axial[0,1:4]
+        posterior_glenoid = axial[1,1:4]
+        glenoid_centre = axial[2,1:4]
 
-        result = vault.create_vault_line(p1,p2)
+        result = vault.create_vault_line(anterior_glenoid,posterior_glenoid)
         if visualise:
-            vis_vault(model, p1, p2, p3, result)
+            vis_vault(model, anterior_glenoid, posterior_glenoid, 
+                    glenoid_centre, result)
 
     if corr_fried !="":
 
         axial = np.genfromtxt(corr_fried, delimiter=",")
-        p1 = axial[0,1:4]
-        p2 = axial[1,1:4]
-        p3 = axial[2,1:4]
-
-        result = corrected_friedman.create_friedman_line(p1,p2)
+        anterior_glenoid = axial[0,1:4]
+        posterior_glenoid = axial[1,1:4]
+        glenoid_centre = axial[2,1:4]
+        raise NotImplementedError("Corrected Friedman is not implemented")
+        result = corrected_friedman.create_friedman_line(#pylint:disable=undefined-variable,unreachable
+                anterior_glenoid,posterior_glenoid)
         if visualise:
-            vis_fried(model,p1,p2,p3,result)
+            vis_fried(model,anterior_glenoid,posterior_glenoid,glenoid_centre,result)
 
     if output == "planes.vtp":
 
@@ -131,8 +136,8 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
 
     if output == "friedman.vtp":
 
-        glenoid_line = make_friedman_model(p1,p2)
-        friedman_line = make_friedman_model(p3,result)
+        glenoid_line = make_friedman_model(anterior_glenoid,posterior_glenoid)
+        friedman_line = make_friedman_model(glenoid_centre,result)
 
         writer = vtk.vtkXMLPolyDataWriter()
         writer.SetFileName(output)
@@ -142,13 +147,13 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         friedman_line.Update()
         writer.Write()
 
-        version = friedman.friedman_version(p2,result,p3)
+        version = friedman.friedman_version(posterior_glenoid,result,glenoid_centre)
         print("version=",version)
 
     if output == "vault.vtp":
 
-        glenoid_line = make_vault_model(p1,p2)
-        vault_line = make_vault_model(p3, result)
+        glenoid_line = make_vault_model(anterior_glenoid,posterior_glenoid)
+        vault_line = make_vault_model(glenoid_centre, result)
 
         writer = vtk.vtkXMLPolyDataWriter()
         writer.SetFileName(output)
@@ -158,5 +163,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         vault_line.Update()
         writer.Write()
 
-        version = vault.vault_version(p2,result,p3)
+        version = vault.vault_version(posterior_glenoid,result,glenoid_centre)
         print("version=",version)
+
+    return version
