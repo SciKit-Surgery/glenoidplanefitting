@@ -15,15 +15,13 @@ import math
 
 
 def createVaultLine(p1,p2):
-
     """
-
     Determines the second point needed to form the Friedman line
-    :param p1: First point on glenoid line, anatomically defined as a point on the anterior margin of glenoid
-    :param p2: Second point on glenoid line anatomically defined as a point on the posterior margin of glenoid
-    
+    :param p1: First point on glenoid line, anatomically defined as a
+            point on the anterior margin of glenoid
+    :param p2: Second point on glenoid line anatomically defined as a
+            point on the posterior margin of glenoid
     :returns: The midpoint of the glenoid line, or the second point of for the vault line
-    
     """
 
     midpoint_x = (p1[0] + p2[0])/2
@@ -33,15 +31,16 @@ def createVaultLine(p1,p2):
     return pm
 
 def VaultVersion(p1,pm,p3):
-
     """
-    Determines the glenoid version using the glenoid vault as reference 
-    :param p1: First point on glenoid line, anatomically defined as a point on the anterior margin of the glenoid
-    :param pm: Second point on the vault line, anatomically defined as the midpoint of the glenoid fossa
-    :param p3: First point on the vault line, anatomically defined as the tip of the glenoid vaultt
+    Determines the glenoid version using the glenoid vault as reference
+    :param p1: First point on glenoid line, anatomically defined as a point
+        on the anterior margin of the glenoid
+    :param pm: Second point on the vault line, anatomically defined as
+        the midpoint of the glenoid fossa
+    :param p3: First point on the vault line, anatomically defined as
+        the tip of the glenoid vault
 
     :returns: The glenoid version (positive value indicates retroversion)
-
     """
 
     a = np.array(p1)
@@ -55,6 +54,5 @@ def VaultVersion(p1,pm,p3):
     radians = np.arccos(cosine_angle)
     math = vtk.vtkMath
     version = (math.DegreesFromRadians(radians))-90
-    
 
     return version
