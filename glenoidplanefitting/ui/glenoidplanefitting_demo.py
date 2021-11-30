@@ -2,7 +2,7 @@
 Main entry point function for the various plane fitting functions
 """
 
-import vtk
+from vtk import vtkXMLPolyDataWriter #pylint:disable=no-name-in-module
 import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
 from glenoidplanefitting.algorithms import plane_fitting, friedman, vault
@@ -91,7 +91,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         result = friedman.create_friedman_line(anterior_glenoid,
                 posterior_glenoid)
         if visualise:
-            vis_fried(model, anterior_glenoid, posterior_glenoid, 
+            vis_fried(model, anterior_glenoid, posterior_glenoid,
                     glenoid_centre, result)
 
 
@@ -104,7 +104,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
 
         result = vault.create_vault_line(anterior_glenoid,posterior_glenoid)
         if visualise:
-            vis_vault(model, anterior_glenoid, posterior_glenoid, 
+            vis_vault(model, anterior_glenoid, posterior_glenoid,
                     glenoid_centre, result)
 
     if corr_fried !="":
@@ -117,15 +117,14 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         result = corrected_friedman.create_friedman_line(#pylint:disable=undefined-variable,unreachable
                 anterior_glenoid,posterior_glenoid)
         if visualise:
-            vis_fried(model,anterior_glenoid,posterior_glenoid,glenoid_centre,result)
+            vis_fried(model,anterior_glenoid,posterior_glenoid,
+                      glenoid_centre,result)
 
     if output == "planes.vtp":
 
-        plane = make_plane_model(result[1], result[2], resolution = 100)
-        plane2 = make_plane_model(result2[1], result2[2], resolution = 100)
         plane3 = make_plane_model(result3[1], result3[2], resolution = 100)
 
-        writer = vtk.vtkXMLPolyDataWriter()
+        writer = vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(plane3.GetOutput())
         plane3.Update()
@@ -139,7 +138,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         glenoid_line = make_friedman_model(anterior_glenoid,posterior_glenoid)
         friedman_line = make_friedman_model(glenoid_centre,result)
 
-        writer = vtk.vtkXMLPolyDataWriter()
+        writer = vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(glenoid_line.GetOutput())
         writer.SetInputData(friedman_line.GetOutput())
@@ -147,7 +146,8 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         friedman_line.Update()
         writer.Write()
 
-        version = friedman.friedman_version(posterior_glenoid,result,glenoid_centre)
+        version = friedman.friedman_version(posterior_glenoid,result,
+                                            glenoid_centre)
         print("version=",version)
 
     if output == "vault.vtp":
@@ -155,7 +155,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         glenoid_line = make_vault_model(anterior_glenoid,posterior_glenoid)
         vault_line = make_vault_model(glenoid_centre, result)
 
-        writer = vtk.vtkXMLPolyDataWriter()
+        writer = vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(glenoid_line.GetOutput())
         writer.SetInputData(vault_line.GetOutput())
