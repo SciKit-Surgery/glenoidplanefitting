@@ -3,9 +3,6 @@
 # confused with the software requirements, which are listed in
 # doc/requirements.rst
 numpy
-scipy
 vtk
 scikit-surgeryvtk
 pyvista
-ipykernel
-nbsphinx
