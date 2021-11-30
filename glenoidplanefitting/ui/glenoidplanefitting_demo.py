@@ -1,128 +1,144 @@
-# coding=utf-8
+"""
+Main entry point function for the various plane fitting functions
+"""
 
-
-import vtk
+from vtk import vtkXMLPolyDataWriter #pylint:disable=no-name-in-module
 import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
 from glenoidplanefitting.algorithms import plane_fitting, friedman, vault
-from glenoidplanefitting.widgets.visualisation import vis_planes, vis_fried, vis_vault
-from glenoidplanefitting.algorithms.models import make_plane_model, make_friedman_model, make_vault_model
+from glenoidplanefitting.widgets.visualisation import vis_planes, vis_fried, \
+        vis_vault
+from glenoidplanefitting.algorithms.models import make_plane_model, \
+        make_friedman_model, make_vault_model
 
 
-def run_demo(model_file_name, planes="", fried_points="", vault_points="", corr_fried="", output="", visualise = False):
+def run_demo(model_file_name, planes="", fried_points="", vault_points="",
+             corr_fried="", output="", visualise = False):
+    """
+    :param planes: File name pointing to file containing points for
+        planes method.
+        First three points are for scapula plane in the order
+        of medial border, inferior tip, glenoid center.
+        For left shoulder latter three points are in order of superior
+        glenoid, left inferior glenoid, right inferior glenoid.
+        For right shoulder latter three points are in order of superior
+        glenoid, right inferior glenoid, left inferior glenoid.
 
+    :param fried_points: File name pointing to a file containing
+        points for the Friedman method.
+        If left shoulder, points in order of, right glenoid tip,
+        left glenoid tip, scapula tip.
+        If right shoulder, points in order of left glenoid tip,
+        right glenoid tip, scapula tip.
+
+    :param vault_points: File name pointing to a file containing
+        points for the vault method.
+        If left shoulder, points in order of, right glenoid tip,
+        left glenoid tip, vault tip.
+        If right shoulder, points in order of, left glenoid tip,
+        right glenoid tip, vault tip.
+
+    :param corr_fried: File name pointing to a file containing points
+        for the corrected Friedman method.
+        Input file: If left shoulder, points in order of, right glenoid tip,
+        left glenoid tip, vault tip.
+        If right shoulder, points in order of, left glenoid tip,
+        right glenoid tip, vault tip.
+
+    :param output: Output filename, can be planes.vtp, friedman.vtp,
+        or vault.vtp
+        Choosing planes.vtp Writes the transverse plane into a file
+        used as the new axial
+        slice for picking
+        the new landmark points for the 3D corrected Friedman method.
+        """
 
     model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
+    version = None
     if planes != "":
 
         points = np.genfromtxt(planes, delimiter=",")
-        
-        """
-        Input file: First three points are for scapula plane in the order of medial border, inferior tip, glenoid center.
-        For left shoulder latter three points are in order of superior glenoid, left inferior glenoid, right inferior glenoid.
-        For right shoulder latter three points are in order of superior glenoid, right inferior glenoid, left inferior glenoid.
-        """
-        
+
+
         points1 = [points[0,1:4],points[1,1:4], points[2,1:4]]
         points2 = [points[3,1:4],points[4,1:4], points[5,1:4]]
 
         return_meta1 = True
         result = plane_fitting.fit_plane_to_points_scapula(points1,return_meta1)
-    
+
         return_meta2 = True
-        result2 = plane_fitting.fit_plane_to_points_glenoid(points2,return_meta2)
+        result2 = plane_fitting.fit_plane_to_points_glenoid(points2,
+                                                            return_meta2)
 
         points3 = [points[0,1:4],points[2,1:4]]
-        
+
         return_meta3 = True
-        result3 = plane_fitting.fit_plane_transverse(points1, points3, return_meta3)
+        result3 = plane_fitting.fit_plane_transverse(points1, points3,
+                                                     return_meta3)
 
         if visualise:
             vis_planes(model, [result, result2, result3])
 
 
     if fried_points != "":
-        
+
         axial = np.genfromtxt(fried_points, delimiter=",")
 
-        """
-        Input file: If left shoulder, points in order of, right glenoid tip, left glenoid tip, scapula tip.
-        If right shoulder, points in order of left glenoid tip, right glenoid tip, scapula tip.
-        """
-        
-        p1 = axial[0,1:4]
-        p2 = axial[1,1:4]
-        p3 = axial[2,1:4]
+        anterior_glenoid = axial[0,1:4]
+        posterior_glenoid = axial[1,1:4]
+        glenoid_centre = axial[2,1:4]
 
-        result = friedman.createFriedmanLine(p1,p2)
+        result = friedman.create_friedman_line(anterior_glenoid,
+                posterior_glenoid)
         if visualise:
-            vis_fried(model, p1, p2, p3, result)
+            vis_fried(model, anterior_glenoid, posterior_glenoid,
+                    glenoid_centre, result)
 
 
     if vault_points !="":
 
-        """
-        Input file: If left shoulder, points in order of, right glenoid tip, left glenoid tip, vault tip.
-        If right shoulder, points in order of, left glenoid tip, right glenoid tip, vault tip. 
-        """
-        
         axial = np.genfromtxt(vault_points, delimiter=",")
-        p1 = axial[0,1:4]
-        p2 = axial[1,1:4]
-        p3 = axial[2,1:4]
+        anterior_glenoid = axial[0,1:4]
+        posterior_glenoid = axial[1,1:4]
+        glenoid_centre = axial[2,1:4]
 
-        result = vault.createVaultLine(p1,p2)
+        result = vault.create_vault_line(anterior_glenoid,posterior_glenoid)
         if visualise:
-            vis_vault(model, p1, p2, p3, result)
-
-     
+            vis_vault(model, anterior_glenoid, posterior_glenoid,
+                    glenoid_centre, result)
 
     if corr_fried !="":
 
-        """
-        Input file: If left shoulder, points in order of, right glenoid tip, left glenoid tip, vault tip.
-        If right shoulder, points in order of, left glenoid tip, right glenoid tip, vault tip.
-        """       
-
         axial = np.genfromtxt(corr_fried, delimiter=",")
-        p1 = axial[0,1:4]
-        p2 = axial[1,1:4]
-        p3 = axial[2,1:4]
-
-        result = corrected_friedman.createFriedmanLine(p1,p2)
+        anterior_glenoid = axial[0,1:4]
+        posterior_glenoid = axial[1,1:4]
+        glenoid_centre = axial[2,1:4]
+        raise NotImplementedError("Corrected Friedman is not implemented")
+        result = corrected_friedman.create_friedman_line(#pylint:disable=undefined-variable,unreachable
+                anterior_glenoid,posterior_glenoid)
         if visualise:
-            vis_fried(model,p1,p2,p3,result)
-    
-                                                                                                   
+            vis_fried(model,anterior_glenoid,posterior_glenoid,
+                      glenoid_centre,result)
 
     if output == "planes.vtp":
-        
-        plane = make_plane_model(result[1], result[2], resolution = 100)
-        plane2 = make_plane_model(result2[1], result2[2], resolution = 100)
+
         plane3 = make_plane_model(result3[1], result3[2], resolution = 100)
 
-        """
-        Writes the transverse plane into a file used as the new axial slice for picking
-        the new landmark points for the 3D corrected Friedman method.
-        """
-
-        writer = vtk.vtkXMLPolyDataWriter()
+        writer = vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(plane3.GetOutput())
         plane3.Update()
         writer.Write()
 
-        version = plane_fitting.PlanesVersion(result[2], result2[2])
+        version = plane_fitting.planes_version(result[2], result2[2])
         print("version=", version)
-
-        
 
     if output == "friedman.vtp":
 
-        glenoid_line = make_friedman_model(p1,p2)
-        friedman_line = make_friedman_model(p3,result)
+        glenoid_line = make_friedman_model(anterior_glenoid,posterior_glenoid)
+        friedman_line = make_friedman_model(glenoid_centre,result)
 
-        writer = vtk.vtkXMLPolyDataWriter()
+        writer = vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(glenoid_line.GetOutput())
         writer.SetInputData(friedman_line.GetOutput())
@@ -130,17 +146,16 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", corr_
         friedman_line.Update()
         writer.Write()
 
-        version = friedman.FriedmanVersion(p2,result,p3)
+        version = friedman.friedman_version(posterior_glenoid,result,
+                                            glenoid_centre)
         print("version=",version)
-
-
 
     if output == "vault.vtp":
 
-        glenoid_line = make_vault_model(p1,p2)
-        vault_line = make_vault_model(p3, result)
+        glenoid_line = make_vault_model(anterior_glenoid,posterior_glenoid)
+        vault_line = make_vault_model(glenoid_centre, result)
 
-        writer = vtk.vtkXMLPolyDataWriter()
+        writer = vtkXMLPolyDataWriter()
         writer.SetFileName(output)
         writer.SetInputData(glenoid_line.GetOutput())
         writer.SetInputData(vault_line.GetOutput())
@@ -148,13 +163,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="", corr_
         vault_line.Update()
         writer.Write()
 
-        version = vault.VaultVersion(p2,result,p3)
+        version = vault.vault_version(posterior_glenoid,result,glenoid_centre)
         print("version=",version)
-        
 
-
-
-    
-
-
-        
+    return version
