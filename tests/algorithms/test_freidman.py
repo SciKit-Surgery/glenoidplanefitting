@@ -22,14 +22,14 @@ def test_creat_friedman_line():
 def test_friedman_version():
     """
     Tests that friedman_version correctly returns the version
-    This is a slightly dodgy regression test, I haven't actually 
+    This is a slightly dodgy regression test, I haven't actually
     though about the numbers here.
     """
     anterior_margin = [3.0, 5.0, 9.0]
     friedman_point0 = [11.0, 13.0, 17.0]
     friedman_point1 = [19.0, 23.0, 29.0]
 
-    version = frd.friedman_version(anterior_margin, 
+    version = frd.friedman_version(anterior_margin,
             friedman_point1, friedman_point0 )
 
     assert math.isclose(version, -85.90928830690325,

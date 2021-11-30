@@ -8,7 +8,7 @@ import glenoidplanefitting.algorithms.models as mdl
 
 def test_make_plane_model():
     """
-    Tests that make_plane_model returns a plane centred on the 
+    Tests that make_plane_model returns a plane centred on the
     plane centre with the correct normal vector
     """
     plane_centre = [1.0, 3.0, 5.0]
@@ -16,14 +16,14 @@ def test_make_plane_model():
     plane_size = 200.0
     plane_resolution = 20
 
-    plane = mdl.make_plane_model(plane_centre, plane_normal, 
+    plane = mdl.make_plane_model(plane_centre, plane_normal,
             plane_resolution, plane_size)
-    
-    assert isinstance (plane, vtk.vtkPlaneSource)
 
-    assert np.array_equal(np.array(plane.GetCenter()), 
+    assert isinstance (plane, vtk.vtkPlaneSource)#pylint:disable=no-member
+
+    assert np.array_equal(np.array(plane.GetCenter()),
                           np.array(plane_centre))
-    
+
     denormalised_normal = np.linalg.norm(np.array(plane_normal)) \
                                          * np.array(plane.GetNormal())
 
@@ -47,7 +47,7 @@ def test_friedman_model():
 
     line = mdl.make_friedman_model(point1, point2)
 
-    assert isinstance(line, vtk.vtkLineSource)
+    assert isinstance(line, vtk.vtkLineSource)#pylint:disable=no-member
     assert line.GetPoint1() == point1
     assert line.GetPoint2() == point2
 
@@ -61,8 +61,6 @@ def test_vault_model():
 
     line = mdl.make_vault_model(point1, point2)
 
-    assert isinstance(line, vtk.vtkLineSource)
+    assert isinstance(line, vtk.vtkLineSource)#pylint:disable=no-member
     assert line.GetPoint1() == point1
     assert line.GetPoint2() == point2
-
-
