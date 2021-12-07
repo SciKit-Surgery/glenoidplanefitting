@@ -65,7 +65,6 @@ def vis_planes(bone, planes):
         plane_source = make_plane_model(plane[1], plane[2])
         add_vtk_source(renderer, plane_source)
 
-
     render_window_common(renderer, "Fitted Planes")
 
 def vis_fried(bone, cross1, cross2, glenoid1, result):

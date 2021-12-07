@@ -53,7 +53,6 @@ setup(
     install_requires=[
         'numpy',
         'vtk',
-        'pyvista',
         'scikit-surgeryvtk'
     ],
 

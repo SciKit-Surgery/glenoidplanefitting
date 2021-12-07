@@ -12,8 +12,8 @@ J Shoulder Elbow Surg (2011) 20, 234-244
 
 import math
 import numpy as np
-import pyvista
 import vtk
+from glenoidplanefitting.algorithms.models import make_plane_model
 
 
 def fit_plane_to_points_scapula(points1, return_meta1=False):
@@ -33,11 +33,11 @@ def fit_plane_to_points_scapula(points1, return_meta1=False):
     center = data.mean(axis=0)
     result = np.linalg.svd(data - center)
     normal = np.cross(result[2][0], result[2][1])
-    plane = pyvista.Plane(center=center, direction=normal)
+    planesource = make_plane_model(center, normal)
     if return_meta1:
-        return plane, center, normal
+        return planesource.GetOutput(), center, normal
 
-    return plane
+    return planesource.GetOutput()
 
 
 def fit_plane_to_points_glenoid(points2, return_meta2=False):
@@ -59,11 +59,11 @@ def fit_plane_to_points_glenoid(points2, return_meta2=False):
     center2 = data2.mean(axis=0)
     result2 = np.linalg.svd(data2 - center2)
     normal2 = np.cross(result2[2][0], result2[2][1])
-    plane2 = pyvista.Plane(center=center2, direction=normal2)
+    planesource2 = make_plane_model(center2, normal2)
     if return_meta2:
-        return plane2, center2, normal2
+        return planesource2.GetOutput(), center2, normal2
 
-    return plane2
+    return planesource2.GetOutput()
 
 def fit_plane_transverse(points1, points3, return_meta3=False):
 
@@ -95,11 +95,11 @@ def fit_plane_transverse(points1, points3, return_meta3=False):
     vector = np.array(data3[0] - data3[1])
     center3 = (x_mid, y_mid, z_mid)
     normal3 = np.cross(vector, normal1)
-    plane3 = pyvista.Plane(center=center3, direction=normal3)
+    planesource3 = make_plane_model(center3, normal3)
     if return_meta3:
-        return plane3, center3, normal3
+        return planesource3.GetOutput(), center3, normal3
 
-    return plane3
+    return planesource3.GetOutput()
 
 
 def planes_version(normal_plane1, normal_plane2):
