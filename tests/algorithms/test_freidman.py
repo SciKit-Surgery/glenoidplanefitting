@@ -2,6 +2,7 @@
 Unit tests for the Friedman module
 """
 import math
+import pytest
 import glenoidplanefitting.algorithms.friedman as frd
 
 
@@ -12,11 +13,15 @@ def test_creat_friedman_line():
     anterior_margin = [3.0, 5.0, 9.0]
     posterior_margin = [11.0, 13.0, 17.0]
 
-    friedman_point = frd.create_friedman_line(anterior_margin, posterior_margin)
+    with pytest.raises(ValueError):
+        friedman_point = frd.create_friedman_line(anterior_margin,
+                                                  posterior_margin)
 
+    posterior_margin = [11.0, 13.0, 9.0]
+    friedman_point = frd.create_friedman_line(anterior_margin, posterior_margin)
     assert friedman_point[0] == 7.0
     assert friedman_point[1] == 9.0
-    assert friedman_point[2] == anterior_margin[2] #is this right, issue #15.
+    assert friedman_point[2] == anterior_margin[2]
 
 
 def test_friedman_version():
