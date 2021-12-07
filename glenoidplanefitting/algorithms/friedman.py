@@ -20,9 +20,14 @@ def create_friedman_line(point0,point1):
     :param point1: Second point on glenoid line anatomically defined as a
         point on the posterior margin of glenoid
 
+    :raises: Value Error if the z values of point0 and point1 are not equal
+
     :returns: The midpoint of the glenoid line, which is the second point of
         the Friedman line
     """
+
+    if point0[2] != point1[2]:
+        raise ValueError("For Friedman method points must have equal z values")
 
     midpoint_x = (point0[0] + point1[0])/2
     midpoint_y = (point0[1] + point1[1])/2
