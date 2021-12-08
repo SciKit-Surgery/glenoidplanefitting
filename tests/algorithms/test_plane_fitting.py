@@ -21,6 +21,7 @@ def test_fit_plane_to_scapula():
     plane = plnf.fit_plane_to_points_scapula(scapula_points)
 
     assert not isinstance(plane, tuple)
+    assert isinstance(plane, vtkPolyData)
 
     plane = plnf.fit_plane_to_points_scapula(scapula_points,
             return_meta1 = True)
@@ -46,6 +47,7 @@ def test_fit_plane_to_glenoid():
     plane = plnf.fit_plane_to_points_glenoid(glenoid_points)
 
     assert not isinstance(plane, tuple)
+    assert isinstance(plane, vtkPolyData)
 
     plane = plnf.fit_plane_to_points_glenoid(glenoid_points,
             return_meta2 = True)
@@ -79,6 +81,7 @@ def test_fit_plane_transverse():
     plane = plnf.fit_plane_transverse(scapula_points, glenoid_points)
 
     assert not isinstance(plane, tuple)
+    assert isinstance(plane, vtkPolyData)
 
     plane = plnf.fit_plane_transverse(scapula_points, glenoid_points,
             return_meta3 = True)
