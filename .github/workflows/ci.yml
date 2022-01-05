@@ -25,7 +25,12 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest -v -s ./tests/
+          coverage erase
+          coverage run -a --source ./glenoidplanefitting -m pytest
+          coverage report -m
+
+      - name: Run Coveralls
+          coveralls
 
       - name: Linting
         run: |
