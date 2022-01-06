@@ -3,7 +3,7 @@ This is an implentation of Friedman's method, see
 
 Friedman RJ, Hawthorne KB and Genez BM.
 `The use of computerized tomography in the measurement
-of glenoid version. <https://pubmed.ncbi.nlm.nih.gov/1522089/>`_ 
+of glenoid version. <https://pubmed.ncbi.nlm.nih.gov/1522089/>`_
 J Bone and Joint Surg Am 1992; 74: 1032–7.
 
 """

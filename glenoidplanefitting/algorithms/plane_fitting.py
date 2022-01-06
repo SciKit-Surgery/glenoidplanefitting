@@ -5,7 +5,7 @@ This is an implementation of a two plane method, see
 
 A. Ganapathi, J. McCarron, Chen, J. Iannotti.
 `Predicting normal glenoid version from the pathologic scapula:
-a comparison of 4 methods in 2- and 3-dimensional models 
+a comparison of 4 methods in 2- and 3-dimensional models
 <https://doi.org/10.1016/j.jse.2010.05.024>`_
 J Shoulder Elbow Surg (2011) 20, 234-244
 
