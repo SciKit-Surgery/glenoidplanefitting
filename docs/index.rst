@@ -7,7 +7,6 @@ Contents
 
   dependency_graph
   Module Contents <modules>
-  notebooks/first_notebook
 
 * :ref:`modindex`
 * :ref:`genindex`
