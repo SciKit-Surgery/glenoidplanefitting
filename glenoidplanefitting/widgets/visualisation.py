@@ -41,7 +41,7 @@ def render_window_common(renderer, window_name):
     render_window.Finalize()
     del render_window_interactor, render_window
 
-def add_vtk_source(renderer, source):
+def add_vtk_source(renderer, source, linewidth = 1.0):
     """
     simplifies adding a vtk geometry source to a renderer
 
@@ -52,6 +52,7 @@ def add_vtk_source(renderer, source):
     mapper.SetInputConnection(source.GetOutputPort())
     actor = vtk.vtkActor() #pylint:disable=no-member
     actor.SetMapper(mapper)
+    actor.GetProperty().SetLineWidth(linewidth)
     renderer.AddActor(actor)
 
 def vis_planes(bone, planes):
@@ -82,7 +83,7 @@ def vis_fried(bone, cross1, cross2, glenoid1, result):
     renderer = renderer_common(bone)
 
     glenoid_line = make_friedman_model(cross1,cross2)
-    add_vtk_source(renderer, glenoid_line)
+    add_vtk_source(renderer, glenoid_line, linewidth = 10 )
 
     friedman_line = make_friedman_model(glenoid1,result)
     add_vtk_source(renderer, friedman_line)
