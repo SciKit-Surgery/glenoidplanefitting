@@ -30,7 +30,7 @@ root_dir_rel = os.path.join('..')
 root_dir_abs = os.path.abspath(root_dir_rel)
 module_path = root_dir_abs
 sys.path.insert(0, module_path)
-logo_file = 'project-icon.png'
+logo_file = 'skglenoid_logo.png'
 logo_path = os.path.join('..', logo_file)
 
 # List of patterns, relative to source directory, that match files and
@@ -90,7 +90,7 @@ def setup(app):
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.imgmath', 'nbsphinx']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.imgmath', 'nbsphinx', 'sphinx.ext.graphviz']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

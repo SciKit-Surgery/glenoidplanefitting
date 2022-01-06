@@ -25,6 +25,7 @@ def renderer_common(bone):
 def render_window_common(renderer, window_name):
     """
     Creates and starts a render window and interactor.
+
     :param renderer: A vtk renderer to add to the render window
     :param window_name: A name for the window
     """
@@ -43,8 +44,9 @@ def render_window_common(renderer, window_name):
 def add_vtk_source(renderer, source):
     """
     simplifies adding a vtk geometry source to a renderer
-    :params renderer: a vtk renderer to add to
-    :params source: a vtk geometry source
+
+    :param renderer: a vtk renderer to add to
+    :param source: a vtk geometry source
     """
     mapper = vtk.vtkPolyDataMapper() #pylint:disable=no-member
     mapper.SetInputConnection(source.GetOutputPort())
@@ -55,6 +57,7 @@ def add_vtk_source(renderer, source):
 def vis_planes(bone, planes):
     """
     Visualisation for plane fitting methods
+
     :param bone: The model surface model
     :param planes: a list of planes, as returned by the
         plane fitting methods in algorithms.plane_fitting
@@ -71,8 +74,9 @@ def vis_fried(bone, cross1, cross2, glenoid1, result):
     """
     Visualise the lines resulting from the friedman
     method.
-    :params cross1, cross2: The end points of the line crossing the glenoid
-    :params glenoid1, result: The end points of the line defining the glenoid
+
+    :param cross1, cross2: The end points of the line crossing the glenoid
+    :param glenoid1, result: The end points of the line defining the glenoid
         version
     """
     renderer = renderer_common(bone)
@@ -90,8 +94,9 @@ def vis_vault(bone, cross1, cross2, glenoid1, result):
     """
     Visualise the lines resulting from the vault
     method.
-    :params cross1, cross2: The end points of the line crossing the glenoid
-    :params glenoid1, result: The end points of the line defining the glenoid
+
+    :param cross1, cross2: The end points of the line crossing the glenoid
+    :param glenoid1, result: The end points of the line defining the glenoid
         version
     """
     renderer = renderer_common(bone)

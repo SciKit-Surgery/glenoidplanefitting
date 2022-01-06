@@ -4,8 +4,9 @@
 This is an implentation of the vault method, see
 
 Matsumura N et al.
-Computed tomography measurement of glenoid vault version
+`Computed tomography measurement of glenoid vault version
 as an alternative measuring method for glenoid version.
+<https://doi.org/10.1186/1749-799x-9-17>`_
 Journal of Orthopaedic Surgery and Research 2014, 9:17
 
 """

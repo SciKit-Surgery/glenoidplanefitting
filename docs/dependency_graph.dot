@@ -1,0 +1,25 @@
+digraph prof {
+	ratio = fill;
+	node [style=filled];
+	"SciKit-SurgeryGlenoid" -> "NumPy";
+	"SciKit-SurgeryGlenoid" -> "SciKit-SurgeryVTK" [color="0.515 0.762 0.762"];
+	"SciKit-SurgeryGlenoid" -> "VTK";
+	
+	"SciKit-SurgeryVTK" -> "NumPy";
+	"SciKit-SurgeryVTK" -> "VTk";
+	"SciKit-SurgeryVTK" -> "PySide2";
+	"SciKit-SurgeryVTK" -> "OpenCV-contrib-python";
+	"SciKit-SurgeryVTK" -> "SciKit-SurgeryCore" [color="0.515 0.762 0.762"];
+	"SciKit-SurgeryVTK" -> "SciKit-SurgeryImage" [color="0.515 0.762 0.762"];
+
+	"SciKit-SurgeryImage" -> "NumPy";
+	"SciKit-SurgeryImage" -> "OpenCV-contrib-python";
+	"SciKit-SurgeryImage" -> "SciKit-SurgeryCore" [color="0.515 0.762 0.762"];
+	"SciKit-SurgeryCore" -> "NumPy";
+
+"SciKit-SurgeryGlenoid" [color="0.515 0.762 0.762"];
+"SciKit-SurgeryVTK"[color="0.515 0.762 0.762"];
+"SciKit-SurgeryImage"[color="0.515 0.762 0.762"];
+"SciKit-SurgeryCore"[color="0.515 0.762 0.762"];
+} 
+
