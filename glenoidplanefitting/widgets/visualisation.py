@@ -3,18 +3,19 @@ Widgets for show the results of plane fitting.
 """
 import vtk
 from glenoidplanefitting.algorithms.models import make_plane_model, \
-        make_friedman_model, make_vault_model
+        make_friedman_model, make_vault_model, make_sphere_model
 
-def renderer_common(bone):
+def renderer_common(bone, background_colour = [0.9, 0.9, 0.9]):
     """
     Initialises a vtk renderer and adds the bone model
     """
 
     renderer = vtk.vtkRenderer() #pylint:disable=no-member
+    renderer.SetBackground(background_colour)
 
-    bone.ambient = 1.0
-    bone.diffuse = 1.0
-    bone.specular = 1.0
+    bone.ambient = 0.0
+    bone.diffuse = 0.0
+    bone.specular = 0.0
     bone.actor.GetProperty().SetAmbient(1)
     bone.actor.GetProperty().SetDiffuse(1)
     bone.actor.GetProperty().SetSpecular(1)
@@ -55,7 +56,7 @@ def add_vtk_source(renderer, source, linewidth = 1.0):
     actor.GetProperty().SetLineWidth(linewidth)
     renderer.AddActor(actor)
 
-def vis_planes(bone, planes):
+def vis_planes(bone, planes, points = []):
     """
     Visualisation for plane fitting methods
 
@@ -68,6 +69,10 @@ def vis_planes(bone, planes):
     for plane in planes:
         plane_source = make_plane_model(plane[1], plane[2])
         add_vtk_source(renderer, plane_source)
+
+    for point in points:
+        sphere_source = make_sphere_model(point)
+        add_vtk_source(renderer, sphere_source)
 
     render_window_common(renderer, "Fitted Planes")
 

@@ -5,6 +5,9 @@ Main entry point function for the various plane fitting functions
 from vtk import vtkXMLPolyDataWriter #pylint:disable=no-name-in-module
 import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
+from sksurgerycore.configuration.configuration_manager import (
+        ConfigurationManager
+        )
 from glenoidplanefitting.algorithms import plane_fitting, friedman, vault
 from glenoidplanefitting.widgets.visualisation import vis_planes, vis_fried, \
         vis_vault
@@ -13,7 +16,7 @@ from glenoidplanefitting.algorithms.models import make_plane_model, \
 
 
 def run_demo(model_file_name, planes="", fried_points="", vault_points="",
-             corr_fried="", output="", visualise = False):
+             corr_fried="", output="", visualise = False, config_file = None):
     """
     :param planes: File name pointing to file containing points for
         planes method.
@@ -51,9 +54,19 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         used as the new axial
         slice for picking
         the new landmark points for the 3D corrected Friedman method.
-        """
 
-    model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
+    :param config_file: We can pass a configuration file, currently 
+        focusing on visualisation parameters
+    """
+    configuration = {}
+    if config_file is not None:
+        configurer = ConfigurationManager(config_file)
+        configuration = configurer.get_copy()
+    background_colour = configuration.get('background colour',  [0.8, 0.8, 0.8])
+    model_colour = configuration.get('model colour',  [0.8, 0.8, 0.8])
+
+
+    model = VTKSurfaceModel(model_file_name, model_colour)
     version = None
     if planes != "":
 
@@ -76,8 +89,9 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         result3 = plane_fitting.fit_plane_transverse(points1, points3,
                                                      return_meta3)
 
+        print(points1)
         if visualise:
-            vis_planes(model, [result, result2, result3])
+            vis_planes(model, [result, result2, result3], points1)
 
 
     if fried_points != "":

@@ -3,6 +3,7 @@ digraph prof {
 	node [style=filled];
 	"SciKit-SurgeryGlenoid" -> "NumPy";
 	"SciKit-SurgeryGlenoid" -> "SciKit-SurgeryVTK" [color="0.515 0.762 0.762"];
+	"SciKit-SurgeryGlenoid" -> "SciKit-SurgeryCore" [color="0.515 0.762 0.762"];
 	"SciKit-SurgeryGlenoid" -> "VTK";
 	
 	"SciKit-SurgeryVTK" -> "NumPy";
