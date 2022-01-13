@@ -67,7 +67,9 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
             [0.89, 0.86, 0.79]) #bone from https://www.colorhexa.com/e3dac9
     plane_resolution = configuration.get('plane resolution', 1)
     plane_size =  configuration.get('plane size' , 200.0)
-
+    point_colour =  configuration.get('point colour', 
+            [0.0, 0.384, 0.490]) #WEISS Blue
+    point_size =  configuration.get('point size', 3.0)
 
     model = VTKSurfaceModel(model_file_name, model_colour)
     version = None
@@ -94,7 +96,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
 
         print(points1)
         if visualise:
-            vis_planes(model, [result, result2, result3], points1,  plane_resolution, plane_size)
+            vis_planes(model, [result, result2, result3], points1,  plane_resolution, plane_size, point_colour, point_size)
 
 
     if fried_points != "":

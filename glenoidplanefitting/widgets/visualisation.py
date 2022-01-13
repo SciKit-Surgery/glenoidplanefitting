@@ -39,7 +39,8 @@ def render_window_common(renderer, window_name):
     render_window.Finalize()
     del render_window_interactor, render_window
 
-def add_vtk_source(renderer, source, linewidth = 1.0, opacity = 1.0, wireframe = False):
+def add_vtk_source(renderer, source, linewidth = 1.0, opacity = 1.0, wireframe = False, 
+        colour = [1.0, 1.0, 1.0]):
     """
     simplifies adding a vtk geometry source to a renderer
 
@@ -56,10 +57,13 @@ def add_vtk_source(renderer, source, linewidth = 1.0, opacity = 1.0, wireframe =
         actor.GetProperty().SetRepresentationToWireframe()
     else:
         actor.GetProperty().SetRepresentationToSurface()
+    
+    actor.GetProperty().SetColor(colour)
 
     renderer.AddActor(actor)
 
-def vis_planes(bone, planes, points = [], resolution = 1, plane_size = 200.0):
+def vis_planes(bone, planes, points = [], resolution = 1, plane_size = 200.0, 
+        point_colour = [1.0, 1.0, 1.0], point_size = 1.0):
     """
     Visualisation for plane fitting methods
 
@@ -76,7 +80,7 @@ def vis_planes(bone, planes, points = [], resolution = 1, plane_size = 200.0):
 
     for point in points:
         sphere_source = make_sphere_model(point)
-        add_vtk_source(renderer, sphere_source)
+        add_vtk_source(renderer, sphere_source, colour = point_colour)
 
     render_window_common(renderer, "Fitted Planes")
 

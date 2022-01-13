@@ -1,5 +1,7 @@
 {
 	"model colour" : [0.89, 0.86, 0.79],
 	"plane resolution" : 1, 
-	"plane size" : 200.0
+	"plane size" : 200.0,
+	"point colour" : [0.0, 0.384, 0.490],
+	"point size" : 3.0
 }
