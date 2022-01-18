@@ -57,9 +57,9 @@ def make_vault_model(point1,point2):
     line.SetPoint2(point2)
     return line
 
-def make_sphere_model(point):
+def make_sphere_model(point, radius = 5.0):
     """
-    Make a sphere source which we can use to represent a landmark 
+    Make a sphere source which we can use to represent a landmark
     point
 
     :param point: the point
@@ -70,5 +70,5 @@ def make_sphere_model(point):
     sphere_source.SetCenter(point)
     sphere_source.SetThetaResolution(12)
     sphere_source.SetPhiResolution(12)
-    sphere_source.SetRadius(5.0)
+    sphere_source.SetRadius(radius)
     return sphere_source

@@ -14,7 +14,7 @@ from glenoidplanefitting.widgets.visualisation import vis_planes, vis_fried, \
 from glenoidplanefitting.algorithms.models import make_plane_model, \
         make_friedman_model, make_vault_model
 
-
+#pylint: disable=too-many-locals
 def run_demo(model_file_name, planes="", fried_points="", vault_points="",
              corr_fried="", output="", visualise = False, config_file = None):
     """
@@ -55,15 +55,14 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         slice for picking
         the new landmark points for the 3D corrected Friedman method.
 
-    :param config_file: We can pass a configuration file, currently 
+    :param config_file: We can pass a configuration file, currently
         focusing on visualisation parameters
     """
     configuration = {}
     if config_file is not None:
         configurer = ConfigurationManager(config_file)
         configuration = configurer.get_copy()
-    background_colour = configuration.get('background colour',  [0.8, 0.8, 0.8])
-    model_colour = configuration.get('model colour',  
+    model_colour = configuration.get('model colour',
             [0.89, 0.86, 0.79]) #bone from https://www.colorhexa.com/e3dac9
     plane_resolution = configuration.get('plane resolution', 1)
     plane_size =  configuration.get('plane size' , 200.0)
@@ -96,7 +95,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
 
         if visualise:
             vis_planes(model, [result, result2, result3], points1, points2,
-                    plane_resolution, plane_size, vary_plane_colour, 
+                    plane_resolution, plane_size, vary_plane_colour,
                     point_size)
 
 
@@ -125,7 +124,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         result = vault.create_vault_line(anterior_glenoid,posterior_glenoid)
         if visualise:
             vis_vault(model, anterior_glenoid, posterior_glenoid,
-                    glenoid_centre, result)
+                    glenoid_centre, result, line_width = line_width)
 
     if corr_fried !="":
 
