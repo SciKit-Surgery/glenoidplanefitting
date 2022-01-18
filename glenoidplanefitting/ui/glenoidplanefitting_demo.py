@@ -69,6 +69,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
     plane_size =  configuration.get('plane size' , 200.0)
     vary_plane_colour = configuration.get('vary plane colour', True)
     point_size =  configuration.get('point size', 3.0)
+    line_width =  configuration.get('line width', 5)
 
     model = VTKSurfaceModel(model_file_name, model_colour)
     version = None
@@ -111,7 +112,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
                 posterior_glenoid)
         if visualise:
             vis_fried(model, anterior_glenoid, posterior_glenoid,
-                    glenoid_centre, result)
+                    glenoid_centre, result, line_width = line_width)
 
 
     if vault_points !="":

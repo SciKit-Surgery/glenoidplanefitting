@@ -3,5 +3,6 @@
 	"plane resolution" : 1, 
 	"plane size" : 200.0,
 	"vary plane colour" : true,
-	"point size" : 3.0
+	"point size" : 3.0,
+	"line width" : 4
 }

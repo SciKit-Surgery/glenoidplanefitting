@@ -102,7 +102,8 @@ def vis_planes(bone, planes, points1 = [], points2 = [],
 
     render_window_common(renderer, "Fitted Planes")
 
-def vis_fried(bone, cross1, cross2, glenoid1, result, resolution = 1, plane_size = 200.0):
+def vis_fried(bone, cross1, cross2, glenoid1, result, resolution = 1, plane_size = 200.0, 
+        line_width = 5):
     """
     Visualise the lines resulting from the friedman
     method.
@@ -114,10 +115,20 @@ def vis_fried(bone, cross1, cross2, glenoid1, result, resolution = 1, plane_size
     renderer = renderer_common(bone)
 
     glenoid_line = make_friedman_model(cross1,cross2)
-    add_vtk_source(renderer, glenoid_line, linewidth = 10 )
+    colour = bang_list()[0]
+    add_vtk_source(renderer, glenoid_line, linewidth = line_width, colour = colour )
+
+    sphere_source = make_sphere_model(cross1)
+    add_vtk_source(renderer, sphere_source, colour = colour)
+    sphere_source = make_sphere_model(cross2)
+    add_vtk_source(renderer, sphere_source, colour = colour)
+
+    colour = bang_list()[1]
+    sphere_source = make_sphere_model(glenoid1)
+    add_vtk_source(renderer, sphere_source, colour = colour)
 
     friedman_line = make_friedman_model(glenoid1,result)
-    add_vtk_source(renderer, friedman_line)
+    add_vtk_source(renderer, friedman_line, linewidth = line_width, colour = colour)
 
     render_window_common(renderer, "Friedman Lines")
 
