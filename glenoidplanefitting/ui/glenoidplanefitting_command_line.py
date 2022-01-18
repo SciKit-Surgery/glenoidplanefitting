@@ -41,7 +41,7 @@ def main(args=None):
                         help="Landmark points file (vault)"
                         )
 
-    parser.add_argument("-c", "--corr_fried",
+    parser.add_argument("-cf", "--corr_fried",
                         required=False,
                         type=str,
                         default="",
@@ -62,6 +62,14 @@ def main(args=None):
                         help="Visualise the results"
                         )
 
+    parser.add_argument("-c", "--config",
+                        required=False,
+                        type=str,
+                        default=None,
+                        help="A configuration file"
+                        )
+
+
     version_string = __version__
     friendly_version_string = version_string if version_string else 'unknown'
     parser.add_argument(
@@ -73,4 +81,4 @@ def main(args=None):
 
     run_demo(args.model, args.planes, args.fried_points,
              args.vault_points,args.corr_fried, args.output,
-             args.visualise)
+             args.visualise, args.config)

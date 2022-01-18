@@ -5,15 +5,18 @@ Main entry point function for the various plane fitting functions
 from vtk import vtkXMLPolyDataWriter #pylint:disable=no-name-in-module
 import numpy as np
 from sksurgeryvtk.models.vtk_surface_model import VTKSurfaceModel
+from sksurgerycore.configuration.configuration_manager import (
+        ConfigurationManager
+        )
 from glenoidplanefitting.algorithms import plane_fitting, friedman, vault
 from glenoidplanefitting.widgets.visualisation import vis_planes, vis_fried, \
         vis_vault
 from glenoidplanefitting.algorithms.models import make_plane_model, \
         make_friedman_model, make_vault_model
 
-
+#pylint: disable=too-many-locals
 def run_demo(model_file_name, planes="", fried_points="", vault_points="",
-             corr_fried="", output="", visualise = False):
+             corr_fried="", output="", visualise = False, config_file = None):
     """
     :param planes: File name pointing to file containing points for
         planes method.
@@ -51,9 +54,23 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         used as the new axial
         slice for picking
         the new landmark points for the 3D corrected Friedman method.
-        """
 
-    model = VTKSurfaceModel(model_file_name, [1., 0., 0.])
+    :param config_file: We can pass a configuration file, currently
+        focusing on visualisation parameters
+    """
+    configuration = {}
+    if config_file is not None:
+        configurer = ConfigurationManager(config_file)
+        configuration = configurer.get_copy()
+    model_colour = configuration.get('model colour',
+            [0.89, 0.86, 0.79]) #bone from https://www.colorhexa.com/e3dac9
+    plane_resolution = configuration.get('plane resolution', 1)
+    plane_size =  configuration.get('plane size' , 200.0)
+    vary_plane_colour = configuration.get('vary plane colour', True)
+    point_size =  configuration.get('point size', 3.0)
+    line_width =  configuration.get('line width', 5)
+
+    model = VTKSurfaceModel(model_file_name, model_colour)
     version = None
     if planes != "":
 
@@ -77,7 +94,9 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
                                                      return_meta3)
 
         if visualise:
-            vis_planes(model, [result, result2, result3])
+            vis_planes(model, [result, result2, result3], points1, points2,
+                    plane_resolution, plane_size, vary_plane_colour,
+                    point_size)
 
 
     if fried_points != "":
@@ -92,7 +111,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
                 posterior_glenoid)
         if visualise:
             vis_fried(model, anterior_glenoid, posterior_glenoid,
-                    glenoid_centre, result)
+                    glenoid_centre, result, line_width = line_width)
 
 
     if vault_points !="":
@@ -105,7 +124,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         result = vault.create_vault_line(anterior_glenoid,posterior_glenoid)
         if visualise:
             vis_vault(model, anterior_glenoid, posterior_glenoid,
-                    glenoid_centre, result)
+                    glenoid_centre, result, line_width = line_width)
 
     if corr_fried !="":
 

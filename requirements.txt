@@ -5,3 +5,4 @@
 numpy
 vtk
 scikit-surgeryvtk
+scikit-surgerycore
