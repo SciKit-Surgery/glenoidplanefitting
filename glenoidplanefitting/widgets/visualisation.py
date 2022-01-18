@@ -4,6 +4,7 @@ Widgets for show the results of plane fitting.
 import vtk
 from glenoidplanefitting.algorithms.models import make_plane_model, \
         make_friedman_model, make_vault_model, make_sphere_model
+from glenoidplanefitting.algorithms.colour_palette import bang_list
 
 def renderer_common(bone, background_colour = [0.9, 0.9, 0.9]):
     """
@@ -55,15 +56,21 @@ def add_vtk_source(renderer, source, linewidth = 1.0, opacity = 1.0, wireframe =
     actor.GetProperty().SetOpacity(opacity)
     if wireframe:
         actor.GetProperty().SetRepresentationToWireframe()
+        actor.GetProperty().SetAmbientColor(colour)
+        actor.GetProperty().SetDiffuseColor(colour)
+        actor.GetProperty().SetSpecularColor(colour)
     else:
         actor.GetProperty().SetRepresentationToSurface()
     
     actor.GetProperty().SetColor(colour)
+    actor.GetProperty().SetEdgeColor(colour)
 
     renderer.AddActor(actor)
 
-def vis_planes(bone, planes, points = [], resolution = 1, plane_size = 200.0, 
-        point_colour = [1.0, 1.0, 1.0], point_size = 1.0):
+def vis_planes(bone, planes, points1 = [], points2 = [], 
+        resolution = 1, plane_size = 200.0, 
+        vary_plane_colour = False,
+        point_size = 1.0):
     """
     Visualisation for plane fitting methods
 
@@ -73,14 +80,25 @@ def vis_planes(bone, planes, points = [], resolution = 1, plane_size = 200.0,
 
     """
     renderer = renderer_common(bone)
-    for plane in planes:
-        plane_source = make_plane_model(plane[1], plane[2], resolution, plane_size)
-        add_vtk_source(renderer, plane_source, opacity = 0.3)
-        add_vtk_source(renderer, plane_source, linewidth = 2, opacity = 1.0, wireframe = True)
+    for item, plane in enumerate(planes):
+        colour = [1., 1., 1.]
+        if vary_plane_colour:
+            colour = bang_list()[item]
 
-    for point in points:
+        plane_source = make_plane_model(plane[1], plane[2], resolution, plane_size)
+        add_vtk_source(renderer, plane_source, opacity = 0.15, colour = colour)
+        add_vtk_source(renderer, plane_source, linewidth = 2, opacity = 1.0, wireframe = True, 
+                colour = colour)
+
+    for point in points1:
+        colour = bang_list()[0]
         sphere_source = make_sphere_model(point)
-        add_vtk_source(renderer, sphere_source, colour = point_colour)
+        add_vtk_source(renderer, sphere_source, colour = colour)
+
+    for point in points2:
+        colour = bang_list()[1]
+        sphere_source = make_sphere_model(point)
+        add_vtk_source(renderer, sphere_source, colour = colour)
 
     render_window_common(renderer, "Fitted Planes")
 
