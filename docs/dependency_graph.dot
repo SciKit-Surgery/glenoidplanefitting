@@ -7,7 +7,7 @@ digraph prof {
 	"SciKit-SurgeryGlenoid" -> "VTK";
 	
 	"SciKit-SurgeryVTK" -> "NumPy";
-	"SciKit-SurgeryVTK" -> "VTk";
+	"SciKit-SurgeryVTK" -> "VTK";
 	"SciKit-SurgeryVTK" -> "PySide2";
 	"SciKit-SurgeryVTK" -> "OpenCV-contrib-python";
 	"SciKit-SurgeryVTK" -> "SciKit-SurgeryCore" [color="0.515 0.762 0.762"];
