@@ -53,12 +53,12 @@ def test_fit_plane_demo():
     version = run_demo (model_file_name = model_name,
                         planes = '',
                         fried_points="",
-                        vault_points='landmark_friedman.fcsv',
+                        vault_points='landmark_vault.fcsv',
                         corr_fried="",
                         output = output_name,
                         visualise = False)
 
-    assert math.isclose(version, 7.742736667)
+    assert math.isclose(version, 15.34696463)
 
     #Corrected friedman method?
     output_name = 'friedman.vtp'
