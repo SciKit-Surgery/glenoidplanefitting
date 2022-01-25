@@ -119,7 +119,7 @@ def run_demo(model_file_name, planes="", fried_points="", vault_points="",
         axial = np.genfromtxt(vault_points, delimiter=",")
         anterior_glenoid = axial[0,1:4]
         posterior_glenoid = axial[1,1:4]
-        glenoid_centre = axial[2,1:4]
+        glenoid_centre = axial[3,1:4]
 
         result = vault.create_vault_line(anterior_glenoid,posterior_glenoid)
         if visualise:
