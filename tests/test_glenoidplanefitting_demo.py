@@ -71,4 +71,4 @@ def test_fit_plane_demo():
                             output = output_name,
                             visualise = False)
 
-    assert math.isclose(version, 7.742736667)
+        assert math.isclose(version, 7.742736667)
